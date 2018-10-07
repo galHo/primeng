@@ -553,6 +553,21 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
                     event.preventDefault();
                 }
                 break;
+            // enter
+            case 13:
+                if (this.overlayVisible) {
+                    const option = this.options[this.focusedOptionIndex];
+                    if (option && !option.disabled) {
+                        this.itemcb.forEach((d, i) => {
+                            if (i === this.focusedOptionIndex) {
+                                d.nativeElement.click();
+                            }
+                        });
+                    }
+                    this.hide();
+                    event.preventDefault();
+                }
+                break;
         }
     }
 
