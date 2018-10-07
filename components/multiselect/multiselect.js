@@ -273,6 +273,7 @@ var MultiSelect = /** @class */ (function () {
         this.onModelTouched();
     };
     MultiSelect.prototype.onInputKeydown = function (event) {
+        var _this = this;
         switch (event.which) {
             //down
             case 40:
@@ -312,6 +313,21 @@ var MultiSelect = /** @class */ (function () {
             case 32:
                 if (!this.overlayVisible) {
                     this.show();
+                    event.preventDefault();
+                }
+                break;
+            // enter
+            case 13:
+                if (this.overlayVisible) {
+                    var option = this.options[this.focusedOptionIndex];
+                    if (option && !option.disabled) {
+                        this.itemcb.forEach(function (d, i) {
+                            if (i === _this.focusedOptionIndex) {
+                                d.nativeElement.click();
+                            }
+                        });
+                    }
+                    this.hide();
                     event.preventDefault();
                 }
                 break;
